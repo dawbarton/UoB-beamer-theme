@@ -1,0 +1,197 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% University of Bristol presentation theme based on the PowerPoint template
+%
+% Copyright (c) 2012, David A.W. Barton (david.barton@bristol.ac.uk)
+% All rights reserved.
+% 
+% Redistribution and use in source and binary forms, with or without
+% modification, are permitted provided that the following conditions are met:
+%     * Redistributions of source code must retain the above copyright
+%       notice, this list of conditions and the following disclaimer.
+%     * Redistributions in binary form must reproduce the above copyright
+%       notice, this list of conditions and the following disclaimer in the
+%       documentation and/or other materials provided with the distribution.
+%     * Neither the name of the <organization> nor the
+%       names of its contributors may be used to endorse or promote products
+%       derived from this software without specific prior written permission.
+% 
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+% ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+% WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+% DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+% DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+% (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+% LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+% ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+% (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+% SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Compress the margins
+\newif\ifbeamer@compress
+\beamer@compressfalse
+\DeclareOptionBeamer{compress}{\beamer@compresstrue}
+
+% Remove the watermark on the title page
+\newif\ifbeamer@nowatermark
+\beamer@nowatermarkfalse
+\DeclareOptionBeamer{nowatermark}{\beamer@nowatermarktrue}
+
+% Remove the footline with url
+\newif\ifbeamer@nourl
+\beamer@nourlfalse
+\DeclareOptionBeamer{nourl}{\beamer@nourltrue}
+
+\ProcessOptionsBeamer
+
+\mode<presentation>
+
+% Enable PDF output
+\pdfoutput=1
+
+% Serif maths fonts
+\usefonttheme[onlymath]{serif} 
+
+% Remove the navigation bar
+\setbeamertemplate{navigation symbols}{}
+
+% Sub-themes to use
+\useinnertheme{UoB}
+\usefonttheme {UoB}
+\usecolortheme{UoB}
+\useoutertheme{UoB}
+
+% Different handout styles
+\mode<handout>{
+  \usepackage{pgfpages}
+
+  \pgfpagesdeclarelayout{3 on 1 with notes}{
+    \edef\pgfpageoptionheight{\the\paperheight}
+    \edef\pgfpageoptionwidth{\the\paperwidth}
+    \edef\pgfpageoptionborder{0pt}
+  }{
+    \pgfpagesphysicalpageoptions{%
+      logical pages=6,%
+      physical height=\pgfpageoptionheight,%
+      physical width=\pgfpageoptionwidth,%
+      last logical shipout=3%
+    }
+    \pgfpageslogicalpageoptions{1}{%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=.3333\pgfphysicalheight,%
+      center=\pgfpoint{.25\pgfphysicalwidth}{.8333333 \pgfphysicalheight},%
+      %    border code=\pgfusepath{stroke}
+    }%
+    \pgfpageslogicalpageoptions{2}{%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=.3333\pgfphysicalheight,%
+      center=\pgfpoint{.25\pgfphysicalwidth}{.5\pgfphysicalheight},%
+      %    border code=\pgfusepath{stroke}%
+    }%
+    \pgfpageslogicalpageoptions{3}{%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=.3333\pgfphysicalheight,%
+      center=\pgfpoint{.25\pgfphysicalwidth}{.1666666 \pgfphysicalheight},%
+      %    border code=\pgfusepath{stroke}%
+    }%
+    \pgfpageslogicalpageoptions{4}{%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=.3333\pgfphysicalheight,%
+      center=\pgfpoint{.75\pgfphysicalwidth}{.8333333 \pgfphysicalheight},%
+      copy from=4
+    }%
+    \pgfpageslogicalpageoptions{5}{%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=.3333\pgfphysicalheight,%
+      center=\pgfpoint{.75\pgfphysicalwidth}{.5\pgfphysicalheight},%
+      copy from=5
+    }%
+    \pgfpageslogicalpageoptions{6}{%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=.3333\pgfphysicalheight,%
+      center=\pgfpoint{.75\pgfphysicalwidth}{.1666666 \pgfphysicalheight},%
+      copy from=6
+    }%
+    \AtBeginDocument{
+      \newbox\notesbox
+      \setbox\notesbox=\vbox{
+        \hsize=\paperwidth
+        \vskip-1in\hskip-1in\vbox{
+          \vskip1cm
+          \hrule width\paperwidth\vskip1cm
+          \hrule width\paperwidth\vskip1cm
+          \hrule width\paperwidth\vskip1cm
+          \hrule width\paperwidth\vskip1cm
+          \hrule width\paperwidth\vskip1cm
+          \hrule width\paperwidth\vskip1cm
+          \hrule width\paperwidth\vskip1cm
+          \hrule width\paperwidth\vskip1cm
+          \hrule width\paperwidth
+        }
+      }
+      \pgfpagesshipoutlogicalpage{4}\copy\notesbox
+      \pgfpagesshipoutlogicalpage{5}\copy\notesbox
+      \pgfpagesshipoutlogicalpage{6}\copy\notesbox
+    }
+  }
+  
+  \pgfpagesdeclarelayout{6 on 1}{
+    \edef\pgfpageoptionheight{\the\paperheight}
+    \edef\pgfpageoptionwidth{\the\paperwidth}
+    \edef\pgfpageoptionborder{0pt}
+  }{
+    \pgfpagesphysicalpageoptions{%
+      logical pages=6,%
+      physical height=\pgfpageoptionheight,%
+      physical width=\pgfpageoptionwidth,%
+      last logical shipout=6%
+    }
+    \pgfpageslogicalpageoptions{1}{%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=.3333\pgfphysicalheight,%
+      center=\pgfpoint{.25\pgfphysicalwidth}{.8333333 \pgfphysicalheight},%
+    }%
+    \pgfpageslogicalpageoptions{3}{%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=.3333\pgfphysicalheight,%
+      center=\pgfpoint{.25\pgfphysicalwidth}{.5\pgfphysicalheight},%
+    }%
+    \pgfpageslogicalpageoptions{5}{%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=.3333\pgfphysicalheight,%
+      center=\pgfpoint{.25\pgfphysicalwidth}{.1666666 \pgfphysicalheight},%
+    }%
+    \pgfpageslogicalpageoptions{2}{%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=.3333\pgfphysicalheight,%
+      center=\pgfpoint{.75\pgfphysicalwidth}{.8333333 \pgfphysicalheight},%
+    }%
+    \pgfpageslogicalpageoptions{4}{%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=.3333\pgfphysicalheight,%
+      center=\pgfpoint{.75\pgfphysicalwidth}{.5\pgfphysicalheight},%
+    }%
+    \pgfpageslogicalpageoptions{6}{%
+      border shrink=\pgfpageoptionborder,%
+      resized width=.5\pgfphysicalwidth,%
+      resized height=.3333\pgfphysicalheight,%
+      center=\pgfpoint{.75\pgfphysicalwidth}{.1666666 \pgfphysicalheight},%
+    }%
+  }
+
+  \pgfpagesuselayout{6 on 1}[a4paper,border shrink=5mm]
+}
+
+
+\mode<all>
