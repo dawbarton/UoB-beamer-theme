@@ -1,19 +1,43 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass{beamer}            % Generate slides
-%\documentclass[handout]{beamer}   % Generate handouts (6 slides to 1 page)
-%\documentclass[aspectratio=169]{beamer}  % Use widescreen 16:9 aspect ratio
+% University of Bristol presentation theme based on the PowerPoint template
+%
+% Copyright (c) 2012, 2020 David A.W. Barton (david.barton@bristol.ac.uk)
+% All rights reserved.
+%
+% The latest version of this theme can be found at
+%   https://github.com/db9052/UoB-beamer-theme
+% 
+% Redistribution and use in source and binary forms, with or without
+% modification, are permitted provided that the following conditions are met:
+%
+%     * Redistributions of source code must retain the above copyright
+%       notice, this list of conditions and the following disclaimer.
+%     * Redistributions in binary form must reproduce the above copyright
+%       notice, this list of conditions and the following disclaimer in the
+%       documentation and/or other materials provided with the distribution.
+%     * Neither the name of the University of Bristol nor the names of its
+%       contributors may be used to endorse or promote products derived from
+%       this software without specific prior written permission.
+% 
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+% AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+% IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+% ARE DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+% DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+% (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+% LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+% ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+% (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+% THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[aspectratio=169]{beamer}
     % Possible aspect ratios are 16:9, 16:10, 14:9, 5:4, 4:3 (default) and 3:2
-    % (Remember to remove the colon)
+    % (Remember to remove the colon, i.e., 16:9 becomes the option 169)
 
 \usetheme{UoB}
-%\usetheme[compress]{UoB}     % Compress the margins
-%\usetheme[nourl]{UoB}        % Remove the footer with the URL
-%\usetheme[nowatermark]{UoB}  % Remove the watermark from the title page
-
-% Generate handouts with notes (3 slides + 3 notes to 1 page)
-%\mode<handout>{
-%  \pgfpagesuselayout{3 on 1 with notes}[a4paper,border shrink=10mm]
-%}
+% If lualatex is used then Rockwell, Latin Modern math, and Arial are used as
+% per the UoB style. If pdflatex is used then Concrete, Euler math, and
+% Helvetica are used as the closest alternatives. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title[Short Title]{Title of Presentation}
@@ -23,16 +47,63 @@
 \date{Date of Presentation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lectures to include
+
+% Lectures available (see \lecture commands below):
+%   01: Introductory slides
+
+\ifdefined\uselecture
+  % Automatically generate specific lecture slides: run (lua/pdf)latex with
+  % latex -jobname "slides-01" "\def\uselecture{01}\input{slides.tex}"
+  % latex -jobname "handout-01" "\def\uselecture{01}\PassOptionsToClass{handout}{beamer}\input{slides.tex}"
+  \expandafter\includeonlylecture\expandafter{\uselecture}
+\else
+  % Default lecture to output - comment out to get all lectures
+  \includeonlylecture{01}
+\fi
+
+% Uncomment to get title slides for each lecture
+% \AtBeginLecture{
+%   \subtitle{\insertlecture}
+%   \setcounter{framenumber}{0}
+%   \begin{frame}
+%     \titlepage
+%   \end{frame}
+% }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Start of the slides
+
 \begin{document}
 
-\titlepage
+% Available frame options:
+%   leftcolor, rightcolor: set the colour of the left or right panel
+%   leftimage, rightimage: put a (cropped) image in the left or right panel
+%   div: set the location of the divider between left and right panels
+%   urlcolor: set the colour of the url
+
+% Other commands available:
+%   \logo{X}: choose the logo to display (logo, white logo, or black logo)
+%   \urltext{X}: change the url for each slide
+
+% All standard University of Bristol colours are available:
+%   UniversityRed, CoolGrey, BrightAqua, BrightBlue, BrightOrange, BrightPurple,
+%   BrightPink, BrightLime, DarkAqua, DarkBlue, DarkOrange, DarkPurple,
+%   DarkPink, DarkLime
+
+\begin{frame}[leftcolor=BrightLime,rightcolor=DarkLime,div=0.8\paperwidth]
+  \titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lecture{Lecture 1}{01}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Slide title}
   Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
   quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+  consequat. Duis aute irure dolor in reprebhenderit in voluptate velit esse
   cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
   proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   \begin{equation*}
@@ -67,7 +138,10 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Some bullet points}
+\begin{frame}[div=0.675\paperwidth]{Some bullet points (with an image!)}
+  % The image can either be in the frame options or as below
+  \rightimage{\includegraphics[trim=0 0 20mm 0,clip,height=\paperheight]{WillsMemorialBuilding.jpg}}
+  Use a better quality image though...
   \begin{itemize}[<+->]
   \item These will get revealed one by one
     \begin{itemize}
@@ -78,6 +152,26 @@
   \item Yet another bullet point
   \end{itemize}
 \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[div=0.6\paperwidth]{Another smaller image}
+  \rightimage{\includegraphics[angle=-90,origin=b,width=0.4\paperwidth]{WillsMemorialBuilding.jpg}}
+  \begin{minipage}{0.625\linewidth}
+    \raggedright
+    Smaller images are centred on the slide and can be used for interesting effects.
+    \medskip
+
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprebhenderit in voluptate velit esse
+    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  \end{minipage}
+\end{frame}
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
